@@ -1,14 +1,13 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
 int main(){
 
     // 1) Declare uma variável do tipo inteiro e atribua o valor '5'.
     int var = 5;
 
     // 2) Declare um vetor de inteiros e inicialize com valores de 0 a 9.
-    vector<int> vec = {0,1,2,3,4,5,6,7,8,9};
+    std::vector<int> vec = {0,1,2,3,4,5,6,7,8,9};
 
     // 3) Declare um ponteiro para inteiros e inicialize com valor nulo.
     
