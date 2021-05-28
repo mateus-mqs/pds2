@@ -1,5 +1,9 @@
 #include "Ponto2D.hpp"
 
+Ponto2D::Ponto2D(){
+    
+}
+
 Ponto2D::Ponto2D(double x, double y){
     this->_x = x;
     this->_y = y;

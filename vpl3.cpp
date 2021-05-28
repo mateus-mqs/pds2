@@ -66,17 +66,18 @@ int main(){
     cout << *pnt << endl;
 
     // 21) Multiplique todos os valores do vetor declarado em (2) por '10', porém manipulando apenas a variável (3)
-    for(int i = 0; i < 10; i++){pnt[i] *= 10;}
+    for(int i = 0; i < 10; i++){pnt[i] *= 10; }
 
     // 22) Imprima os elementos de (2) a partir variável do vetor utilizando a notação [] (colchetes)
     for(int i = 0; i < 10; i++){cout << vec[i] << " ";}
     cout << endl;
 
     // 23) Imprima os elementos de (2) a partir variável do vetor utilizando a notação ponteiro/deslocamento
-    //for(int i = 0; i < 10; i++){cout << *pnt << " "; pnt++;}
-    //cout << endl;
+    for(int i = 0; i < 10; i++){cout << *(vec+i) << " "; pnt++;}
+    cout << endl;
 
     // 24) Imprima os elementos de (2) manipulando apenas a variável (3)
+    pnt = &vec[0];
     for(int i = 0; i < 10; i++){cout << *pnt << " "; pnt++;}
     cout << endl;
 
