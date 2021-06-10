@@ -1,11 +1,13 @@
 #ifndef ALUNO_H
 #define ALUNO_H
 
+#include <string>
+
 struct Aluno {
-    int _matricula;
-    char _nome[20];
+    int matricula;
+    std::string nome;
     Aluno();
-    Aluno(int _matricula, char _nome[]);
+    Aluno(int matricula, std::string nome);
     void imprimir_dados();
 };
 

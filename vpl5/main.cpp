@@ -2,17 +2,21 @@
 #include "BST.hpp"
 #include "Aluno.hpp"
 #include <iostream>
+#include "avaliacao_basica_bst.hpp"
 
 int main() {
-    int mat;
-    char nom[20];
+    avaliacao_basica();
 
+    int mat;
+    string nom;
     BST bst;
+
     while(cin >> mat >> nom){
         Aluno aluno = Aluno(mat, nom);
-        std::cout << aluno._matricula << aluno._nome << std::endl;
         bst.inserir_aluno(aluno);
     }
-    bst.imprime_arvore(bst.raiz);
+
+    bst.imprimir_arvore(bst.raiz);
+
     return 0;
 }

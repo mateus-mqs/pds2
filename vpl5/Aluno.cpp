@@ -6,11 +6,12 @@ Aluno::Aluno(){
 
 }
 
-Aluno::Aluno(int matricula, char nome[20]){
-    this->_matricula = matricula;
-    std::strcpy(this->_nome, nome);
+Aluno::Aluno(int matricula, std::string nome){
+    this->matricula = matricula;
+    this->nome = nome;
 }
 
 void Aluno::imprimir_dados(){
-    std::cout << this->_matricula << " " << this->_nome << std::endl;
+    std::cout << this->matricula << " " << this->nome << std::endl;
 }
+
