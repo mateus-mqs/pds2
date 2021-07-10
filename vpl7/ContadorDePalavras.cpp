@@ -15,7 +15,7 @@ void ContadorDePalavras::Adicionar(string s){
     }
     Palavra aux = Palavra(s);
     for(it=_lista_de_palavras.begin(); it != _lista_de_palavras.end(); ++it){
-        if(!(it->operator<(aux))){
+        if(it->operator<(aux)){
             _lista_de_palavras.insert(it,aux);
             return;
         }
