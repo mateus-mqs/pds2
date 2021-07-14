@@ -80,23 +80,31 @@ void ContadorNumNaturais::processaLinha(const std::string &str) {
 }
 
 bool LeitorDeFutebol::linhaValida(const std::string &str) const {
-    std::string dateFormat = "\\s*[a-zA-Z]*\\s*[0-9]\\s*[a-zA-Z]*\\s*[0-9]\\s*";
+    std::string dateFormat = "\\s*[a-zA-Z]+\\s*[0-9]+\\s*[a-zA-Z]+\\s*[0-9]+\\s*";
     std::regex regularExpr(dateFormat);
     std::sregex_iterator it(str.begin(), str.end(), regularExpr);
     std::smatch encontrado = *it;
     if(encontrado.empty()){return false;}
+    else if(encontrado.str() != str){return false;}
     return true;
 }
 
 void LeitorDeFutebol::processaLinha(const std::string &str) {
     std::vector<std::string> aux = {"", "", "", ""};
+    std::string aux1 = "";
     int gol1, gol2, j = 0;
     for (int i = 0; i < str.size(); ++i){
-        if(str[i] != 32){
-            aux[j].push_back(str[i]);
-        } else {
-            ++j;
+        if((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= '0' && str[i] <= '9')){
+            aux1.push_back(str[i]);
         }
+    }
+    aux[0].push_back(aux1[0]);
+    for (int i = 1; i < aux1.size(); ++i){
+        if((((aux1[i-1] >= 'a' && aux1[i-1] <= 'z') || (aux1[i-1] >= 'A' && aux1[i-1] <= 'Z')) && (aux1[i] >= '0' && aux1[i] <= '9'))
+        || (((aux1[i] >= 'a' && aux1[i] <= 'z') || (aux1[i] >= 'A' && aux1[i] <= 'Z')) && (aux1[i-1] >= '0' && aux1[i-1] <= '9'))){
+            j++;
+        }
+        aux[j].push_back(aux1[i]);
     }
     gol1 = stoi(aux[1]); gol2 = stoi(aux[3]);
     if(gol1 > gol2){
@@ -160,6 +168,9 @@ bool EscritorDeDatas::linhaValida(const std::string &str) const {
     std::sregex_iterator it(str.begin(), str.end(), regularExpr);
     std::smatch encontrado = *it;
     if(encontrado.empty()){return false;}
+    else if (encontrado.str() != str){
+        return false;
+    }
     return true;
 }
 
