@@ -30,10 +30,6 @@ class LineProcessor {
       // numero de linhas lidas.
     }
 
-    void numeroDeLinhasLidas(){
-
-    }
-
     /**
      * \brief Destrutor virtual padrao. O destrutor virtual eh necessario, pois
      * esta classe, sendo abstrata, somente pode ser usada via heranca.
@@ -71,6 +67,7 @@ class LineProcessor {
       // linhas lidas.
       std::string linha;
       while (std::getline(_in, linha)) {
+        _numLinhasLidas++;
         if (linhaValida(linha)) {
           _numLinhasValidas++;
           processaLinha(linha);

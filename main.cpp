@@ -1,13 +1,17 @@
 #include <iostream>
 #include <string>
+#include <regex>
+#include <list>
 using namespace std;
 int main(){
-    string str, aux;
-    int num;
-    str = "     ";
-    num = str[1];
-    for(int i = 0; i < str.size(); ++i){
-        cout << num;
+    std::list<int> str = {};
+    str.push_back('a');
+    str.push_back('b');
+    int *aux = nullptr;
+    str.pop_front();
+    std::cout << str.front() << endl;
+    if(aux == nullptr){
+        cout << "sffs" << endl;
     }
     return 0;
 }

@@ -54,7 +54,10 @@ void ContadorPopRural::processaLinha(const std::string &str) {
 
 bool ContadorNumNaturais::linhaValida(const std::string &str) const {
   for (int i = 0; i < str.size(); i++){
-      if((str[i] < 48) || (str[i] > 57) || (str[i] != 32) || (str[i] != 10)){
+      if((str[i] < 48) || (str[i] > 57)){
+          if((str[i] == 32) || (str[i] == 10)){
+              continue;
+          }
           return false;
       }
   }
@@ -77,23 +80,17 @@ void ContadorNumNaturais::processaLinha(const std::string &str) {
 }
 
 bool LeitorDeFutebol::linhaValida(const std::string &str) const {
-    int aux = 0;
-    for (int i = 0; i < str.size(); ++i){
-        if(str[i] == 32){
-            ++aux;
-        } else if(!((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122) || (str[i] >= 48 && str[i] <= 57)) || str[i] != 10){
-            return false;
-        }
-    }
-    if(aux != 3){
-        return false;
-    }
+    std::string dateFormat = "\\s*[a-zA-Z]*\\s*[0-9]\\s*[a-zA-Z]*\\s*[0-9]\\s*";
+    std::regex regularExpr(dateFormat);
+    std::sregex_iterator it(str.begin(), str.end(), regularExpr);
+    std::smatch encontrado = *it;
+    if(encontrado.empty()){return false;}
     return true;
 }
 
 void LeitorDeFutebol::processaLinha(const std::string &str) {
     std::vector<std::string> aux = {"", "", "", ""};
-    unsigned int gol1, gol2, j;
+    int gol1, gol2, j = 0;
     for (int i = 0; i < str.size(); ++i){
         if(str[i] != 32){
             aux[j].push_back(str[i]);
@@ -113,17 +110,18 @@ void LeitorDeFutebol::processaLinha(const std::string &str) {
 
 void ContadorDePalavras::processaLinha(const std::string &str) {
     int num = 1;
+    if(str.front() == 32){--num;}
     for(int i = 0; i < str.size(); ++i){
         if(str[i] == 32){
             ++num;
         }
     }
-  std::cout << num << std::endl;
+    std::cout << num << std::endl;
 }
 
 bool InversorDeFrases::linhaValida(const std::string &str) const {
     for (int i = 0; i < str.size(); ++i){
-        if(!((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122)) || str[i] != 10){
+        if(!((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122) || (str[i] == 32) || (str[i] == 10))){
             return false;
         }
     }
@@ -131,26 +129,59 @@ bool InversorDeFrases::linhaValida(const std::string &str) const {
 }
 
 void InversorDeFrases::processaLinha(const std::string &str) {
-  int tam = str.size();
-  std::string aux = "";
-  for(int i = 0; i < tam; i++){
-      aux[i] = str[tam-i-1];
-  } 
-  std::cout << aux << std::endl;
+    std::vector<std::string> aux = {""};
+    std::vector<std::string> aux1 = {};
+    std::string str1 = {};
+    int j = 0;
+    for(int i = 0; i < str.size(); i++){
+        if(str[i] == 32){
+            j++;
+            aux.push_back("");
+        } else {
+            aux[j].push_back(str[i]);
+        }
+    }
+    for(int i = 0; i < aux.size(); i++){
+        aux1.push_back("");
+        aux1[i] = aux[aux.size()-1-i];
+    }
+    for(int i = 0; i < aux1.size(); i++){
+        for(int j = 0; j < aux1[i].size(); j++){
+            str1.push_back(aux1[i][j]);
+        }
+        str1.push_back(' ');
+    }
+    std::cout << str1 << std::endl;
 }
 
 bool EscritorDeDatas::linhaValida(const std::string &str) const {
-  std::string dateFormat = "\\s*\\d\\d?/\\d\\d?/\\d{4}";
-  // TODO: Implemente este metodo
-  // Note que você pode usar uma expressao regular como:
-  // "\\s*\\d\\d?/\\d\\d?/\\d{4}" para saber se a linha eh valida:
-  return false;
+    std::string dateFormat = "\\s*\\d\\d?/\\d\\d?/\\d{4}";
+    std::regex regularExpr(dateFormat);
+    std::sregex_iterator it(str.begin(), str.end(), regularExpr);
+    std::smatch encontrado = *it;
+    if(encontrado.empty()){return false;}
+    return true;
 }
 
 void EscritorDeDatas::processaLinha(const std::string &str) {
-  // TODO: Implemente este metodo:
-  // Lembre-se que as iniciais dos meses sao:
-  // "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out",
-  // "Nov", e "Dez".
-  std::cout << "Imprime algo aqui!" << std::endl;
+    std::string aux = "";
+    for(int i = 0; i < str.size(); i++){
+        if(str[i] == '/'){
+            aux.push_back(str[i+1]);
+            if(str[i+2] != '/'){aux.push_back(str[i+2]);}
+            break;
+        }
+    }
+    if (stoi(aux) == 1){std::cout << "Jan" << std::endl;}
+    else if (stoi(aux) == 2) {std::cout << "Fev" << std::endl;}
+    else if (stoi(aux) == 3) {std::cout << "Mar" << std::endl;}
+    else if (stoi(aux) == 4) {std::cout << "Abr" << std::endl;}
+    else if (stoi(aux) == 5) {std::cout << "Mai" << std::endl;}
+    else if (stoi(aux) == 6) {std::cout << "Jun" << std::endl;}
+    else if (stoi(aux) == 7) {std::cout << "Jul" << std::endl;}
+    else if (stoi(aux) == 8) {std::cout << "Ago" << std::endl;}
+    else if (stoi(aux) == 9) {std::cout << "Set" << std::endl;}
+    else if (stoi(aux) == 10) {std::cout << "Out" << std::endl;}
+    else if (stoi(aux) == 11) {std::cout << "Nov" << std::endl;}
+    else if (stoi(aux) == 12) {std::cout << "Dez" << std::endl;}
 }

@@ -46,6 +46,8 @@ class FilaDePrioridade {
   // Remove todos os elementos da fila.
   void Limpar();
 
+  void Imprime();
+
  private:
   // Número de elementos da fila.
   int tamanho_;  
@@ -54,5 +56,5 @@ class FilaDePrioridade {
   // Quando tamanho_ == 0, o valor deste ponteiro é nullptr.
   No* primeiro_;
 
-  std::list<No*> lista_;
+  std::list<No> lista_;
 };
