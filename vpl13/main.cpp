@@ -34,7 +34,8 @@ RightSquare* readSquare() {
 
 void readPolygons(std::vector<Polygon*>& polygons) {
   char type;
-  for(int i = 0; i < 2; i++){
+  int i = 0;
+  while (i < 2) {
     std::cin >> type;
     switch(type) {
       case 'p':
@@ -50,8 +51,8 @@ void readPolygons(std::vector<Polygon*>& polygons) {
         std::cerr << "Invalid type\n";
         exit(1);
     }
+    i++;
   }
-
 }
 
 unsigned testCountContainsOrigin() {
