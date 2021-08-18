@@ -10,38 +10,54 @@ void fer_assert(const bool expr, const char* msg) {
 }
 
 template <class T, unsigned N>
-void RingArray<T, N>::add(T value) {
-    if(_siz == N-1){fer_assert(0, "Erro: anel cheio.");}
-    buf[_last] = value;
-    ++_last;
-    ++_siz;
-    if(_last == N){_last = 0;}
+void RingArray<T, N>::add(T value) { // TODO: 
+  fer_assert(!(this->isFull()), "Erro: anel cheio.");
+  this->buf[this->_last] = value;
+  this->_last ++; 
+  if (this->_last == 8){
+    this->_last = 0; //Retorna ao inicio do circulo
+  }
+  if (this->_tam < 9){
+    this->_tam++;
+  }
+  std::cout << this->_last << std::endl;
+  std::cout << this->_first << std::endl;
+  std::cout << this->_tam << std::endl;
 }
 
 template <class T, unsigned N>
-T RingArray<T, N>::get() {
-    if(_siz == 0){fer_assert(0, "Erro: anel vazio.");}
-    T value = buf[_first];
-    ++_first;
-    --_siz;
-    if(_first == N){_first = 0;}
-    return value;
+T RingArray<T, N>::get() { // TODO:
+  fer_assert(!(this->isEmpty()), "Erro: anel vazio.");
+  if (this->_tam > 0){
+    this->_tam--;
+  }
+  unsigned pos = this->_first;
+  this->_first++;
+  if (this->_first == 8){
+    this->_first = 0;
+  }
+  std::cout << this->_last << std::endl;
+  std::cout << this->_first << std::endl;
+  std::cout << this->_tam << std::endl;
+  return this->buf[pos];
 }
 
 template <class T, unsigned N>
 bool RingArray<T, N>::isFull() const {
-    if(_siz == N){
-      return true;
-    }
+  if(this->_tam == N){
+    return true;
+  } else {
     return false;
+  }
 }
 
 template <class T, unsigned N>
 bool RingArray<T, N>::isEmpty() const {
-      if(_siz == 0){
-        return true;
-      }
-      return false;
+  if(this->_tam == 0){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 template <class T>
