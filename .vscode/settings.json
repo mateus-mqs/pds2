@@ -67,6 +67,14 @@
         "locale": "cpp",
         "regex": "cpp",
         "xlocbuf": "cpp",
-        "xlocmes": "cpp"
+        "xlocmes": "cpp",
+        "chrono": "cpp",
+        "csignal": "cpp",
+        "mutex": "cpp",
+        "ratio": "cpp",
+        "set": "cpp",
+        "xthread": "cpp",
+        "thread": "cpp",
+        "xhash": "cpp"
     }
 }
